@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/04/12 16:55:30 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/07 18:50:37 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,8 @@ int		ft_find(char *str, char c);
 char	*find_var(t_env *env_p, char *var);
 void	expand_var(t_str *str, t_env *env_p);
 int		is_substring(char *str, char *to_find);
+
+//////////////BUILTINS_PART/////////////////
+void	unset(char **cmd, t_env *evr);
+//////////////BUILTINS_PART/////////////////
 #endif
