@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:37:34 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/07 01:54:25 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/07 04:17:36 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int EXIST_STATUS;
 
 int		ft_strcmp(const char *s1, const char *s2);
 void	echo(char **input, int outf);
+void	pwd(char **input, int fd);
 char	*epur_str(char* s);
 
 

@@ -8,12 +8,12 @@ void	check_builtin(char **cmd, int fd)
 
 	if (!ft_strcmp(cmd[0], "echo"))
 		echo(cmd, fd);
+	else if (!ft_strcmp(cmd[0], "pwd"))
+		pwd(cmd, fd);
 	else
 		printf("NO BUILTINS\n");
 	// else if (!ft_strcmp(cmd[i], "cd"))
 	// 	cd(cmd[i]);
-	// else if (!ft_strcmp(cmd[i], "pwd"))
-	// 	pwd();
 	// else if (!ft_strcmp(cmd[i], "export"))
 	// 	export();
 	// else if (!ft_strcmp(cmd[i], "unset"))
