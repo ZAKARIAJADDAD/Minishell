@@ -36,7 +36,9 @@ int main(int ac, char **av, char **env) {
 	get_env(&envr, env);
 	while (1)
 	{
-		input = readline("\033[0;32mBuiltins ==> ");
+		input = readline("\033[0;32mExecution =>> ");
+		if (!input || input[0] == '\0')
+			continue ;
 		epur_str(input);
 		cmd_prt =  ft_split(input, ' ');
 		check_builtin(cmd_prt, fd, envr);
