@@ -6,11 +6,12 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/07 01:59:14 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/10 22:32:20 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "minishell.h"
 #include "../libft/libft.h"
 
 int	check_newline(char *s)
@@ -32,7 +33,7 @@ void	echo(char **input, int outf)
 	int	i;
 	int	flag;
 
-	EXIST_STATUS = 0;
+	glob.ex_status = 0;
 	flag = 1;
 	i = 1;
 	while (input[i] && check_newline(input[i]))

@@ -12,6 +12,8 @@ void	check_builtin(char **cmd, int fd, t_env	*envr)
 		pwd(cmd, fd);
 	else if (!ft_strcmp(cmd[0], "unset"))
 		unset(cmd, envr);
+	else if (!ft_strcmp(cmd[0], "env"))
+		env(envr, fd);
 	else
 		printf("NO BUILTINS\n");
 	// else if (!ft_strcmp(cmd[i], "cd"))
@@ -20,8 +22,6 @@ void	check_builtin(char **cmd, int fd, t_env	*envr)
 	// 	export();
 	// else if (!ft_strcmp(cmd[i], "exit"))
 	// 	ft_exit();
-	// else if (!ft_strcmp(cmd[i], "env"))
-	// 	env();
 	// else
 	// 	execute();
 }
@@ -37,6 +37,7 @@ int main(int ac, char **av, char **env) {
 	while (1)
 	{
 		input = readline("\033[0;32mExecution =>> ");
+		add_history (input);
 		if (!input || input[0] == '\0')
 			continue ;
 		epur_str(input);
