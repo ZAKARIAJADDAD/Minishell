@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/10 22:32:20 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/11 02:58:00 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_newline(char *s)
 	while (s[i] == 'n')
 		i++;
 	if (s[i] && s[i] != 'n')
-		return (1);
+		return (0);
 	return (1);
 }
 
