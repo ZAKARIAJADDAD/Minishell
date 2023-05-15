@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/12 05:28:45 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/12 05:38:50 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	unset(char **cmd, t_env *evr)
 
 	tmp = evr;
 	i = 0;
-	// PS: check if program get env_value(mean those are after '=' in env)
-	//it must display nothing. Become functional just if get it env_key
 	if (cmd[0] && !cmd[1])
 		return ;
 	while (cmd[++i])

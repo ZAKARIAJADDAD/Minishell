@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/12 05:24:15 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/15 05:09:10 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void	unset(char **cmd, t_env *evr);
 void	env(t_env *evr, int outf);
 void    ft_exit(char **cmd);
 void	cd(char **cmd, t_env *envr);
+void	ft_export(char **cmd, int outf);
 int		args_len(char **s);
+int	foreign_letter(char *cmd);
 //////////////BUILTINS_PART/////////////////
 t_gob glob;
 #endif

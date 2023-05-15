@@ -16,12 +16,10 @@ void	check_builtin(char **cmd, int fd, t_env	*envr)
 		ft_exit(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
 		cd(cmd, envr);
+	else if (!ft_strcmp(cmd[0], "export"))
+		ft_export(cmd, fd);
 	else
 		printf("NO BUILTINS\n");
-	// else if (!ft_strcmp(cmd[i], "export"))
-	// 	export();
-	// else
-	// 	execute();
 }
 
 int main(int ac, char **av, char **env) {
@@ -33,6 +31,7 @@ int main(int ac, char **av, char **env) {
 	char	**cmd_prt;
 
 	get_env(&envr, env);
+	glob.envr = envr;
 	while (1)
 	{
 		input = readline("\033[0;32mExecution =>> ");
