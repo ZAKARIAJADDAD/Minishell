@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 02:29:20 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/05/03 16:36:59 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/18 16:35:21 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../libft/libft.h"
-#include "builtins.h"
-#include "minishell.h"
+#include "libft.h"
 
-void	env(t_env *evr, int outf)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_env *tmp;
+	size_t			i;
+	unsigned char	*p1;
+	unsigned char	*p2;
 
-	tmp = evr;
-	glob.ex_status = 0;
-	while (tmp)
+	i = 0;
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	while (p1[i] != '\0' || p2[i] != '\0')
 	{
-		ft_putstr_fd(tmp->key, outf);
-		ft_putstr_fd("=", outf);
-		ft_putstr_fd(tmp->value, outf);
-		ft_putstr_fd("\n", outf);
-		tmp = tmp->next;
+		if (p1[i] != p2[i])
+			return (p1[i] - p2[i]);
+		i++;
 	}
+	return (0);
 }

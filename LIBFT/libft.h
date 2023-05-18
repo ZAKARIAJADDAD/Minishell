@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:17:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/15 05:21:13 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/18 16:27:03 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_split(char const *s, char c);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

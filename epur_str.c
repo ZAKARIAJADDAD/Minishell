@@ -6,11 +6,11 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:28:27 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 17:34:48 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/18 16:53:00 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "minishell.h"
 
 char	*epur_str(char* s)
 {

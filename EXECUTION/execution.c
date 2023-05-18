@@ -1,18 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built-in.c                                         :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 16:12:05 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/04/12 17:34:24 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/18 16:56:20 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "LIBFT/libft.h"
+#include "../minishell.h"
 
-void	echo(t_str cmd, int fd, int flag)
-{
-	
-}
