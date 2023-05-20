@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   exec_get_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/20 06:27:26 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/05/20 06:08:08 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/20 06:21:07 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIBFT/libft.h"
 #include "../minishell.h"
+#include "../LIBFT/libft.h"
 
-void	execution(t_data_cmd *cmds)
+void	pipe_creation(t_pipes *pipes)
 {
-	t_exc	exc;
-
-	pipes_creation(&exc.pipe);
-	exc.i = -1;
-	while (++exc.i < glob.nb_cmds)
-	{
-		
-	}
+	if (pipe(pipes->p1_end) == -1)
+		exit(print_error("Pipe Error"));
+	if (pipe(pipes->p2_end) == -1)
+		exit(print_error("Pipe Error"));
 }

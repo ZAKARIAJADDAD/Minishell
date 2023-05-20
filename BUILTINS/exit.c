@@ -63,7 +63,7 @@ void ft_exit(t_args *cmd)
         arg_one(tmp->args);
     else
     {
-        if (!ft_atoi(tmp->args))
+        if (ft_atoi(tmp->args) == -1)
             invalid_arg();
 		printf("exit\n");
         write(1, "too many arguments\n", 19);

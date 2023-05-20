@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 03:21:45 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/18 16:51:27 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/20 03:58:51 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,14 @@ int main(int ac, char **av, char **env) {
 	int	fd = 1;
 	char *input;
 	char *ss;
-	char	**cmd_prt;
+	char **sidi;
+	char **cmd_prt;
 	t_args	*comd;
 	extern char **environ;
 	get_env(environ);
 	while (1)
 	{
-		input = readline("\033[0;32mExecution =>> ");
+		input = readline("\033[0;32m➜ minishell ");
 		add_history (input);
 		if (!input || input[0] == '\0')
 			continue ;
