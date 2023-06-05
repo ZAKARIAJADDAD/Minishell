@@ -3,140 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 03:21:45 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/20 03:58:51 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/06/05 14:37:42 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LIBFT/libft.h"
 #include "minishell.h"
 
-void	check_builtin(t_args *cmd, int fd, t_env *envr)
+void	init_g_glob(void)
 {
-	if (!ft_strcmp(cmd->args, "echo"))
-		echo(cmd, fd);
-	else if (!ft_strcmp(cmd->args, "pwd"))
-		pwd(cmd, fd);
-	else if (!ft_strcmp(cmd->args, "cd"))
-		cd(cmd);
-	else if (!ft_strcmp(cmd->args, "unset"))
-		unset(cmd);
-	else if (!ft_strcmp(cmd->args, "env"))
-		env(fd);
-	else if (!ft_strcmp(cmd->args, "exit"))
-		ft_exit(cmd);
-	else if (!ft_strcmp(cmd->args, "export"))
-		ft_export(cmd, fd);
+	g_glob.ex_status = 0;
+	g_glob.p_chld = 0;
+	g_glob.nb_cmds = 1;
+	g_glob.fd_here_doc = 0;
+	g_glob.to_expand = 0;
+	g_glob.nb_err = 0;
+	g_glob.ambg_redir = 0;
+}
+
+int	read_line(char **line)
+{
+	char	*trimmed_line;
+	char	*end;
+	char	*start;
+
+	*line = readline("→ minishell~$ ");
+	if (*line == NULL)
+		ctrl_d_handler();
+	trimmed_line = ft_strdup(*line);
+	end = trimmed_line + ft_strlen(trimmed_line) - 1;
+	while (end > trimmed_line && ft_isspace(*end))
+		end--;
+	*(end + 1) = '\0';
+	start = trimmed_line;
+	while (*start && ft_isspace(*start))
+		start++;
+	if (*start == '\0')
+	{
+		free(*line);
+		free(trimmed_line);
+		return (1);
+	}
+	free(*line);
+	*line = trimmed_line;
+	return (0);
+}
+
+void	start_execution(t_data_cmd *cmds, char **env)
+{
+	if (builtins_check(cmds->args) != NONE_BLT && g_glob.nb_cmds == 1)
+		builtins(cmds->args, cmds->fd_out);
 	else
-		printf("NO BUILTINS\n");
+		init_execution(cmds, env);
 }
 
-t_args *ft_lstlast_arg(t_args *lst)
+void	lets_go(t_parser *parser, char *cmd, char **env, t_data_cmd *data)
 {
-	t_args	*last;
-
-	last = NULL;
-	
-	if (lst)
-	{
-		last = lst;
-		while (last->next)
-			last = last->next;
-	}
-	return (last);
-}
-
-t_args *ft_lstnew_arg(void *content)
-{
-	t_args	*p = NULL;
-	
-	p = malloc(sizeof(t_args));
-	if (p == NULL)
-		return (NULL);
-	p->args = content;
-	p->next = NULL;
-	return (p);
-}
-
-void ft_lstadd_back_arg(t_args **lst, t_args *new)
-{
-	t_args *last;
-
-	if (!lst || !(*lst))
-	{
-		*lst = new;
-		return;
-	}
-	last = ft_lstlast_arg(*lst);
-	if (last)
-		last->next = new;
-}
-
-t_args *init_struct_cmd(char **args)
-{
-    t_args *head = NULL;
-    t_args *current = NULL;
-    int i = 0;
-    
-    while (args[i])
-    {
-        t_args *new_node = malloc(sizeof(t_args));
-        if (!new_node)
-            return NULL;
-        new_node->args = args[i];
-        new_node->next = NULL;
-        if (current)
-            current->next = new_node;
-        else
-            head = new_node;
-        current = new_node;
-        i++;
-    }
-    return (head);
-}
-
-void	ft_free_node(t_args *cmd)
-{
-	t_args	*tmp;
-
-	while (cmd)
-	{
-		tmp = cmd->next;
-		// free(cmd->args);
-		free(cmd);
-		cmd = tmp;
-	}
-}
-
-int main(int ac, char **av, char **env) {
-    int i = 0;
-	int	fd = 1;
-	char *input;
-	char *ss;
-	char **sidi;
-	char **cmd_prt;
-	t_args	*comd;
-	extern char **environ;
-	get_env(environ);
+	init_g_glob();
 	while (1)
 	{
-		input = readline("\033[0;32m➜ minishell ");
-		add_history (input);
-		if (!input || input[0] == '\0')
-			continue ;
-		ss = epur_str(input);
-		cmd_prt =  ft_split(ss, ' ');
-		comd = init_struct_cmd(cmd_prt);
-		check_builtin(comd, fd, glob.env_p);
-		while(cmd_prt[i])
-			free(cmd_prt[i++]);
-		free(cmd_prt);
-		free(input);
-		free(ss);
-		ft_free_node(comd);
-		i = 0;
+		g_glob.to_expand = 0;
+		g_glob.nb_err = 0;
+		g_glob.ambg_redir = 0;
+		signal(SIGINT, ctrl_c_handler);
+		signal(SIGQUIT, SIG_IGN);
+		if (read_line(&cmd) == 0)
+		{
+			add_history(cmd);
+			if (max_heredoc(cmd) == 0)
+			{
+				parser = initialize_parser(cmd);
+				if (parser == NULL || start_parsing(parser, &data) == 1)
+					continue ;
+				ft_err();
+				if (data != NULL)
+					start_execution(data, env);
+				free_parser_cmd(&parser, &data);
+			}
+			free(cmd);
+		}
 	}
-    return 0;
+}
+
+int	main(int ac, char **av, char **env)
+{
+	t_parser	*parser;
+	char		*input;
+	t_data_cmd	*data_cmd;
+
+	(void)av;
+	input = NULL;
+	parser = NULL;
+	data_cmd = NULL;
+	if (ac != 1)
+		exit(EXIT_FAILURE);
+	get_env(env);
+	lets_go(parser, input, env, data_cmd);
 }

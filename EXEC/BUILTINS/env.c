@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	env(int outf)
 {
-	int	i;
+	t_env	*tmp;
 
-	if (s)
+	tmp = g_glob.env_p;
+	g_glob.ex_status = 0;
+	while (tmp)
 	{
-		i = 0;
-		while (s[i])
+		if (tmp->value)
 		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+			ft_putstr_fd(tmp->key, outf);
+			ft_putstr_fd("=", outf);
+			ft_putstr_fd(tmp->value, outf);
+			ft_putstr_fd("\n", outf);
+		}
+		tmp = tmp->next;
 	}
 }

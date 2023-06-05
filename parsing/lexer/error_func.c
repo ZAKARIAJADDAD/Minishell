@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   error_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/03 20:44:40 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:03:55 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	error_func(int err)
 {
-	int	i;
+	char	*str;
 
-	if (s)
-	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
-	}
+	str = strerror(err);
 }

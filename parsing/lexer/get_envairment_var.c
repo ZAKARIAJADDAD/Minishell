@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   get_envairment_var.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/04 19:37:08 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char	*get_envairment_var(char *to_find)
 {
-	int	i;
+	char	*var;
+	t_env	*env_p;
 
-	if (s)
+	var = NULL;
+	env_p = g_glob.env_p;
+	while (env_p->next)
 	{
-		i = 0;
-		while (s[i])
+		if (ft_strcmp(env_p->key, to_find) == 0)
 		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+			var = ft_strdup(env_p->value);
+			if (var == NULL)
+				error_func(errno);
+		}
+		env_p = env_p->next;
 	}
+	return (var);
 }

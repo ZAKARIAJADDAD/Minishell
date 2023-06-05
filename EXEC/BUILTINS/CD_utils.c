@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   CD_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/27 12:04:26 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/27 22:18:06 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	to_home(char *home, t_env *evr)
 {
-	int	i;
-
-	if (s)
+	if (home)
 	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+		update_pwd(home, evr);
+		free(home);
 	}
+	else
+		print_errors("cd: HOME not set");
 }

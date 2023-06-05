@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   prints_errs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/06/03 15:43:35 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/06/03 16:59:33 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_err(void)
 {
-	int	i;
-
-	if (s)
+	while (g_glob.ambg_redir > 0)
 	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+		g_glob.ex_status = 1;
+		ft_putendl_fd("Error: Ambiguous redirect", 2);
+		g_glob.ambg_redir--;
+	}
+	while (g_glob.nb_err > 0)
+	{
+		g_glob.ex_status = 1;
+		ft_putendl_fd("bash: No such file or directory", 2);
+		g_glob.nb_err--;
 	}
 }

@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   max_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/08 16:03:15 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	max_heredoc(char *str)
 {
 	int	i;
+	int	count;
 
-	if (s)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+		if (str[i] == '<' && str[i + 1] == '<')
+			count++;
+		i++;
 	}
+	if (count > 16)
+	{
+		ft_putendl_fd("bash: maximum here-document count exceeded: 16", 2);
+		g_glob.ex_status = 2;
+		return (1);
+	}
+	return (0);
 }

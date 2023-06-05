@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:48:02 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 14:53:43 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/04/01 00:29:22 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:25:21 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+/*
++ The function checks whether the quotes in the string are balanced or not.
+*/
+int	check_qutes(t_lexer *lexer, char q)
 {
-	int	i;
+	int	begin;
 
-	if (s)
+	begin = lexer->i;
+	while (lexer->src[begin] != '\0')
 	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}	
+		if (lexer->src[begin] == q)
+			return (1);
+		begin++;
 	}
+	return (0);
 }
